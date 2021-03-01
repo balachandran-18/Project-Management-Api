@@ -1,0 +1,48 @@
+{
+    "name": "project-management",
+    "version": "1.0.0",
+    "description": "Project Managements",
+    "private": true,
+    "engines": {
+        "node": ">= 12.14.1"
+    },
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js",
+        "format": "npm run lint -- --fix",
+        "test": "npm run lint -s && mocha --recursive tests/",
+        "lint": "eslint '**/*.js' --ignore-path .gitignore",
+        "setup": "echo \"//registry.npmjs.org/:_authToken=${NPM_TOKEN}\" >> .npmrc"
+    },
+    "homepage": "",
+    "dependencies": {
+        "archiver": "^2.1.0",
+        "async": "2.3.0",
+        "crypto": "^1.0.1",
+        "dotenv": "^4.0.0",
+        "ejs": "^2.5.6",
+        "lodash": "4.17.4",
+        "md5": "^2.2.1",
+        "mime-types": "2.1.14",
+        "moment": "2.17.1",
+        "moment-range": "^3.0.3",
+        "moment-timezone": "0.5.13",
+        "mysql": "^2.11.1",
+        "mysql2": "^1.6.1",
+        "nodemon": "^2.0.7",
+        "request": "2.79.0",
+        "restify": "4.3.0",
+        "sequelize": "^3.23.4",
+        "soap": "0.18.0",
+        "uuid": "3.0.1"
+    },
+    "devDependencies": {
+        "chai": "3.5.0",
+        "eslint": "4.9.0",
+        "eslint-plugin-node": "5.2.0",
+        "mocha": "3.2.0",
+        "proxyquire": "1.7.11",
+        "sinon": "1.17.7",
+        "sinon-as-promised": "4.0.2"
+    }
+}
