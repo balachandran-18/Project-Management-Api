@@ -26,23 +26,23 @@ function loginByPassword(req, res, next) {
                 return next(new restify.errors.UnauthorizedError("This account is not yet registered with us"));
             }
 
-            if (user.password !== md5(password)) {
+            if (userDetails.password !== md5(password)) {
                 return next(new restify.errors.UnauthorizedError("Invalid credentials"));
             }
 
-            const session_id = user.session_id || Math.floor(Date.now());
+            const session_id = userDetails.session_id || Math.floor(Date.now());
 
-            user
+            userDetails
                 .updateAttributes({
                     last_loggedin_at: utils.getSQlCurrentDateTime(),
                     session_id
                 })
                 .then(() => {
                     res.json({
-                        message: "User LoggedIn SuccessFully",
+                        message: "User LoggedIn Successfully",
                         user: {
                             token: session_id,
-                            id: user.id
+                            id: userDetails.id
                         }
                     });
                 })
