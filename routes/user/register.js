@@ -8,7 +8,7 @@ const path = require("path");
 function register(req, res, next) {
     const data = req.body;
 
-    const { email, password, firstName, lastName, phone } = data;
+    const { email, password, firstName, lastName, role } = data;
 
     if (!firstName) {
         return next(new restify.errors.BadRequestError("First name is required"));
@@ -44,14 +44,14 @@ function register(req, res, next) {
                     password: md5(password),
                     first_name: firstName,
                     last_name: lastName,
-                    phone,
+                    role,
                     last_loggedin_at: utils.getSQlCurrentDateTime()
                 })
                 .then((user) => {
                     const user_id = user.get("id");
 
                     res.json({
-                        message: "User Registered SuccessFully",
+                        message: "User Registered Successfully",
                         user: {
                             token: session_id,
                             id: user_id

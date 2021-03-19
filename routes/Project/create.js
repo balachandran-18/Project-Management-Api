@@ -6,7 +6,7 @@ const restify = require("restify");
 function create(req, res, next) {
     const data = req.body;
 
-    const { name, description, batch, staffId } = data;
+    const { name, description, status, technology,  staffId, teamLeadId } = data;
 
     if (!name) {
         return next(new restify.errors.BadRequestError("Name is required"));
@@ -16,8 +16,12 @@ function create(req, res, next) {
         return next(new restify.errors.BadRequestError("Description is required"));
     }
 
-    if (!batch) {
-        return next(new restify.errors.BadRequestError("Batch is required"));
+    if (!status) {
+        return next(new restify.errors.BadRequestError("Status is required"));
+    }
+
+    if (!teamLeadId) {
+        return next(new restify.errors.BadRequestError("Team Lead is required"));
     }
 
     // if (!staffId) {
@@ -35,13 +39,24 @@ function create(req, res, next) {
                 .create({
                     name,
                     description,
-                    batch,
-                    staff_id: staffId
+                    status,
+                    technology,
+                    staff_id: staffId,
+                    team_lead_id: teamLeadId
                 })
                 .then((projectDetails) => {
                     res.json(201, {
                         message: "Project added successfully",
-                        projectId: projectDetails.id
+                        projectDetails: {
+                            id: projectDetails.id,
+                            name: projectDetails.name,
+                            description: projectDetails.description,
+                            status: projectDetails.status,
+                            technology: projectDetails.technology,
+                            staffId: projectDetails.staff_id,
+                            teamLeadId: projectDetails.team_lead_id,
+                            createdAt: projectDetails.created_at,
+                        }
                     });
                 })
                 .catch((err) => {

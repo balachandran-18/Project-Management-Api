@@ -29,10 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `project` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `batch` varchar(255) DEFAULT NULL,
-  `staff_id` int(11) NOT NULL,
+  `technology` text DEFAULT NULL,
+  `staff_id` int(11) DEFAULT NULL,
+  `team_lead_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -42,8 +44,8 @@ CREATE TABLE `project` (
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`id`, `name`, `description`, `batch`, `staff_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'School Management', 'About the school management', 'Batch 1', 0, '2021-02-27 18:27:01', '2021-02-27 18:27:01', NULL);
+INSERT INTO `project` (`id`, `name`, `status`, `description`, `technology`, `staff_id`, `team_lead_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'School Management', 'Pending for Approval', 'About the school management', 'IOT', 2, 3, '2021-02-27 18:27:01', '2021-02-27 18:27:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -51,21 +53,24 @@ INSERT INTO `project` (`id`, `name`, `description`, `batch`, `staff_id`, `create
 -- Table structure for table `project_user`
 --
 
-CREATE TABLE `project_user` (
+CREATE TABLE `team_user` (
   `id` int(11) NOT NULL,
-  `project_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `team_lead_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `project_user`
+-- Dumping data for table `team_user`
 --
 
-INSERT INTO `project_user` (`id`, `project_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 1, 1, '2021-02-27 19:15:34', '2021-02-27 19:15:34', NULL);
+INSERT INTO `team_user` (`id`, `team_lead_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 3, 3, '2021-02-27 19:15:34', '2021-02-27 19:15:34', NULL);
+
+INSERT INTO `team_user` (`id`, `team_lead_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 3, 4, '2021-02-27 19:15:34', '2021-02-27 19:15:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -78,11 +83,9 @@ CREATE TABLE `user` (
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
   `email` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
-  `password` varchar(150) NOT NULL,
+  `password` varchar(150) DEFAULT NULL,
   `role` tinyint(1) DEFAULT NULL,
   `session_id` varchar(50) DEFAULT NULL,
-  `profile_photo` longtext DEFAULT NULL,
-  `status` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` datetime DEFAULT NULL
@@ -92,9 +95,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `session_id`, `profile_photo`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'Gmail', 'admin@gmail.com', '', NULL, '1614447851562', NULL, 0, '2021-02-27 17:44:11', '2021-02-27 17:44:11', NULL),
-(2, 'Student', 'Ravi', 'Student+1@gmail.com', '', NULL, '1614447899417', NULL, 0, '2021-02-27 17:44:59', '2021-02-27 17:44:59', NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `session_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Admin', 'HOD', 'admin@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 1, '1614447851562', '2021-02-27 17:44:11', '2021-02-27 17:44:11', NULL),
+(2, 'Staff', 'Ravi', 'staff@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 2, '1614447899417', '2021-02-27 17:44:59', '2021-02-27 17:44:59', NULL),
+(3, 'Anand', 'Varma', 'anand@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 3, '1614447899417', '2021-02-27 17:44:59', '2021-02-27 17:44:59', NULL),
+(4, 'Sonam', 'Ravi', 'sonam@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 4, '1614447899417', '2021-02-27 17:44:59', '2021-02-27 17:44:59', NULL);
 
 --
 -- Indexes for dumped tables
@@ -107,9 +112,9 @@ ALTER TABLE `project`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `project_user`
+-- Indexes for table `team_user`
 --
-ALTER TABLE `project_user`
+ALTER TABLE `team_user`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -131,9 +136,9 @@ ALTER TABLE `project`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `project_user`
+-- AUTO_INCREMENT for table `team_user`
 --
-ALTER TABLE `project_user`
+ALTER TABLE `team_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --

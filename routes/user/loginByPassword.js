@@ -18,7 +18,7 @@ function loginByPassword(req, res, next) {
 
     User
         .findOne({
-            attributes: ["id", "first_name", "session_id", "password"],
+            attributes: ["id", "first_name", "session_id", "password", "role"],
             where: { email }
         })
         .then((userDetails) => {
@@ -42,7 +42,8 @@ function loginByPassword(req, res, next) {
                         message: "User LoggedIn Successfully",
                         user: {
                             token: session_id,
-                            id: userDetails.id
+                            id: userDetails.id,
+                            role: userDetails.role
                         }
                     });
                 })

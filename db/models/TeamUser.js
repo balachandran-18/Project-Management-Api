@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) =>
-    sequelize.define("ProjectUser", {
+    sequelize.define("TeamUser", {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) =>
             allowNull: true
         },
     }, {
-        tableName: "project_user",
+        tableName: "team_user",
         timestamps: true,
         createdAt: "created_at",
         updatedAt: "updated_at",

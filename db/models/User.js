@@ -30,10 +30,6 @@ module.exports = (sequelize, DataTypes) =>
             type: DataTypes.STRING,
             allowNull: true
         },
-        profile_photo: {
-            type: DataTypes.TEXT,
-            allowNull: true
-        }
     }, {
         tableName: "user",
         timestamps: true,
