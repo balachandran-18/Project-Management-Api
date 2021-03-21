@@ -54,7 +54,8 @@ function register(req, res, next) {
                         message: "User Registered Successfully",
                         user: {
                             token: session_id,
-                            id: user_id
+                            id: user_id,
+                            role
                         }
                     });
                 })
