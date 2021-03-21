@@ -70,6 +70,8 @@ function list(req, res, next) {
                     description: project.description,
                     batch: project.batch,
                     staffId: project.staff_id,
+                    technology: project.technology,
+                    batch: project.batch,
                     createdAt: project.created_at,
                 });
             });
