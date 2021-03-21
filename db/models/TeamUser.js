@@ -1,5 +1,8 @@
-module.exports = (sequelize, DataTypes) =>
-    sequelize.define("TeamUser", {
+module.exports = (sequelize, DataTypes) => {
+    const Project = require("./Project")(sequelize, DataTypes);
+    const User = require("./User")(sequelize, DataTypes);
+
+    const TeamUser = sequelize.define("TeamUser", {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -21,3 +24,16 @@ module.exports = (sequelize, DataTypes) =>
         updatedAt: "updated_at",
         deletedAt: "deleted_at"
     });
+
+    TeamUser.belongsTo(Project, {
+        as: "project",
+        foreignKey: 'project_id'
+    });
+    
+    TeamUser.belongsTo(User, {
+        as: "user",
+        foreignKey: 'user_id'
+    });
+
+    return TeamUser;
+}
